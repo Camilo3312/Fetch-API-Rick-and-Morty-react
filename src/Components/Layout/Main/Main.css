@@ -1,0 +1,19 @@
+.center_main {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.header_select_characters {
+    padding: 10px 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #424242;
+}
+
+.container_card {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

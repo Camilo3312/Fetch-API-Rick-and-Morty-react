@@ -1,0 +1,18 @@
+.header_pages {
+    background: #181818;
+    color: #FFFF;
+    background-image: url(../../../Assets/images/Banner.jpeg);
+    background-size: cover;
+    background-position: center;
+}
+
+.filter { 
+    backdrop-filter: blur(5px);
+    background-color: rgba(18, 56, 10, 0.3); 
+}
+
+.center_header_pages {
+    padding: 20px;
+    max-width: 1100px;
+    margin: auto;
+}
