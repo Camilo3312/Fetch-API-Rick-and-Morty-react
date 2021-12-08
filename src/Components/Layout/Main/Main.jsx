@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 // import { Button } from '../../UI/Button/Button'
 import { Card } from '../../UI/Card/Card'
+import { SearchInput } from '../../UI/SearchInput/SearchInput'
 import { SelectButton } from '../../UI/SelectButton/SelectButton'
 import './Main.css'
 
@@ -8,6 +9,7 @@ export const Main = () => {
     const api = 'https://rickandmortyapi.com/api/character'
 
     const [characters, setCharacters] = useState([]);
+    const [charactersSearch, setCharactersSearch] = useState([]);
     const [character, setCharacter] = useState({});
     const [selectAllCharacters, setSelectAllCharacters] = useState(false);
     const [notSelectCharacters, setNotSelectCharacters] = useState(false);
@@ -16,11 +18,21 @@ export const Main = () => {
         fetch(`${api}/${id}`)
             .then(response => response.json())
             .then(response =>{ 
-                if(id !== "")
+                if(id !== ""){
+                    if(id.includes('name')) {
+                        setCharactersSearch(response.results)
+                    } else
                     setCharacter(response)
-                else
+                }else
                     setCharacters(response.results)
             })
+    }
+
+    const searchCharacters = (e) => {
+        setNotSelectCharacters(true)
+        setSelectAllCharacters(true)
+
+        fetchApi(`?name=${e.target.value}`)
     }
 
     const getValueOption = (e) => {
@@ -42,15 +54,19 @@ export const Main = () => {
 
     return (
         <main>
-            <header className="header_select_characters">        
-                <SelectButton options={characters} funct={getValueOption} text="Seleccione un personaje" />
+            <header className="header_select_characters">   
+                <div className="center_header">     
+                    <SearchInput funct={searchCharacters} />
+                    <SelectButton options={characters} funct={getValueOption} text="Seleccione un personaje" />       
+                </div>
             </header>
+
             <div className="center_main">                 
                 <section className="container_card">
                     {
                         notSelectCharacters && (                
                             selectAllCharacters ?          
-                                characters.map(item => (
+                                charactersSearch?.map(item => (
                                     <Card key={item.id} info={item} />
                                 ))
                                 :
